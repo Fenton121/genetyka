@@ -59,13 +59,16 @@ class GeneticBags():
         roulette = Roulette(self.bags)
         self.idxOfBagsForReproduction = roulette.DrawBags()
         
+    def ExtractOnlyMostValuable(self):
+        self.bags = self.bags[0:self.numOfBags]
         
     def StartCrossBags(self):
         self.DrawIdxOfBagsForReproduction()
         inseminator = Inseminator(self.bags,
                                   self.idxOfBagsForReproduction)
         self.bags = inseminator.CrossBags()
-        print "self.bags = " + str(self.bags)
+        self.OrderBags()
+        self.ExtractOnlyMostValuable()
         
     def ResetVariable(self):
         self.idxOfBagsForReproduction = []
@@ -75,8 +78,8 @@ class GeneticBags():
         self.FillBags()
         self.OrderBags()
         bigestValue = self.FindMostValuable()
-        self.PrintValueBags()
-        for crossIdx in range(0, 1):
+#         self.PrintValueBags()
+        for crossIdx in range(0, 100):
             self.ResetVariable()
             self.StartCrossBags()
 #             bigestValue = self.FindMostValuable()
