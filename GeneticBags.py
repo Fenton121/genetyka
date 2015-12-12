@@ -15,7 +15,6 @@ class GeneticBags():
         self.maxWeightOfBag = maxWeightOfBag
         self.numOfElements  = numOfElements;
         self.bags = []
-        self.crossProbability = 60;
         self.idxOfBagsForReproduction = []
         
     def PrintValueBags(self):
@@ -65,8 +64,9 @@ class GeneticBags():
         self.DrawIdxOfBagsForReproduction()
         inseminator = Inseminator(self.bags,
                                   self.idxOfBagsForReproduction)
-#         self.bags = inseminator.CrossBags()
-        inseminator.CrossBags()
+        self.bags = inseminator.CrossBags()
+        print "self.bags = " + str(self.bags)
+        
     def ResetVariable(self):
         self.idxOfBagsForReproduction = []
 
@@ -79,6 +79,6 @@ class GeneticBags():
         for crossIdx in range(0, 1):
             self.ResetVariable()
             self.StartCrossBags()
-            bigestValue = self.FindMostValuable()
+#             bigestValue = self.FindMostValuable()
             print "crossIdx " + str(crossIdx) + " bigestValue = " + str(bigestValue)
             
