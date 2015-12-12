@@ -54,73 +54,31 @@ class GeneticBags():
                 mostValuableIdx = bagIdx
                 bigestValue = valueOfActualBag
         return bigestValue
-    
-    
-#         
-# 
-#             
-#     def IsReadyForCross(self):
-#         randomInt = random.randint(1, 100)
-#         if(randomInt < self.crossProbability):
-#             return True
-#         else:
-#             return False
-#         
-#     def MixTwoBag(self,
-#                   bag,
-#                   bagForReproduction):
-#         numOfElements = bag.GetNumOfElements();
-#         randNumOfElementToMix = random.randint(0, numOfElements-1)
-#         
-#         bag.ExtractElements(randNumOfElementToMix)
-#         bag.AddElementsFromOtherBag(bagForReproduction)
-#         
-#         return bag
-#         
-#     def MixBags(self,
-#                 bagIdx,
-#                 bagsForReproduction):
-#         bag = copy(self.bags[bagIdx])
-#         bagForReproduction = copy(bagsForReproduction[bagIdx])
-#         
-#         
-#         newBag = self.MixTwoBag(bag,
-#                                 bagForReproduction)
-#         self.bags[bagIdx] = newBag
-#         
-#     def CrossBags(self,
-#                   bagsForReproduction):
-# 
-#         for bagIdx in range(0, self.numOfBags):
-#             isCross = self.IsReadyForCross()
-#             if(isCross):
-#                 self.MixBags(bagIdx,
-#                              bagsForReproduction)
             
             
     def DrawIdxOfBagsForReproduction(self):
         roulette = Roulette(self.bags)
         self.idxOfBagsForReproduction = roulette.DrawBags()
         
+        
     def StartCrossBags(self):
         self.DrawIdxOfBagsForReproduction()
-        
-        
-    def ResetVariable(self):
-        self.idxOfBagsForReproduction = []
         inseminator = Inseminator(self.bags,
                                   self.idxOfBagsForReproduction)
+#         self.bags = inseminator.CrossBags()
+        inseminator.CrossBags()
+    def ResetVariable(self):
+        self.idxOfBagsForReproduction = []
+
         
     def StartProcessing(self):
         self.FillBags()
         self.OrderBags()
         bigestValue = self.FindMostValuable()
         self.PrintValueBags()
-        print "bigestValue = " + str(bigestValue)
-        self.ResetVariable()
-        self.StartCrossBags()
-#         for crossIdx in range(0, 1):
-#             self.StartCrossBags()
-#             bigestValue = self.FindMostValuable()
-#             print "crossIdx " + str(crossIdx) + " bigestValue = " + str(bigestValue)
+        for crossIdx in range(0, 1):
+            self.ResetVariable()
+            self.StartCrossBags()
+            bigestValue = self.FindMostValuable()
+            print "crossIdx " + str(crossIdx) + " bigestValue = " + str(bigestValue)
             

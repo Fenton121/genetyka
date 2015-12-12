@@ -15,14 +15,15 @@ class Roulette():
 
     def DrawBags(self):
         idxOfBagsForReproduction = []
-        while(len(idxOfBagsForReproduction) < (len(self.bags)/2) ):
-            idxOfBagForReproduction = self.FindBagFromRange()
-            if not(idxOfBagForReproduction in idxOfBagsForReproduction):
-                idxOfBagsForReproduction.append(idxOfBagForReproduction)
+        while(len(idxOfBagsForReproduction) < ( len(self.bags)) ):
+            idxOfBagForReprodFirst  = self.FindBagFromRange()
+            idxOfBagForReprodSecond = self.FindBagFromRange()
+            if(idxOfBagForReprodFirst != idxOfBagForReprodSecond):
+                idxOfBagsForReproduction.append([idxOfBagForReprodFirst, idxOfBagForReprodSecond])
         return idxOfBagsForReproduction
             
     def FindBagFromRange(self):
-            randRange = random.randint(0, self.rouletteRange - 1)
+            randRange = random.randint(0, (self.rouletteRange/2) - 1)
             for bagIdx in range(0, len(self.bags)):
                 if(self.roulette[bagIdx] > randRange):
                     return bagIdx
