@@ -15,6 +15,7 @@ class GeneticBags():
         self.numOfElements  = numOfElements;
         self.bags = []
         self.crossProbability = 60;
+        self.idxOfBagsForReproduction = []
         
     def PrintValueBags(self):
         for bagIdx in range(0, self.numOfBags):
@@ -53,88 +54,68 @@ class GeneticBags():
                 bigestValue = valueOfActualBag
         return bigestValue
     
-
     
-    
-    def FindBagFromRange(self,
-                         roulette,
-                         rouletteRange,
-                         bagIdxForReproduction):
-
-        while(True):
-            isFinded = False
-            randRange = random.randint(0, rouletteRange - 1)
+#         
+# 
+#             
+#     def IsReadyForCross(self):
+#         randomInt = random.randint(1, 100)
+#         if(randomInt < self.crossProbability):
+#             return True
+#         else:
+#             return False
+#         
+#     def MixTwoBag(self,
+#                   bag,
+#                   bagForReproduction):
+#         numOfElements = bag.GetNumOfElements();
+#         randNumOfElementToMix = random.randint(0, numOfElements-1)
+#         
+#         bag.ExtractElements(randNumOfElementToMix)
+#         bag.AddElementsFromOtherBag(bagForReproduction)
+#         
+#         return bag
+#         
+#     def MixBags(self,
+#                 bagIdx,
+#                 bagsForReproduction):
+#         bag = copy(self.bags[bagIdx])
+#         bagForReproduction = copy(bagsForReproduction[bagIdx])
+#         
+#         
+#         newBag = self.MixTwoBag(bag,
+#                                 bagForReproduction)
+#         self.bags[bagIdx] = newBag
+#         
+#     def CrossBags(self,
+#                   bagsForReproduction):
+# 
+#         for bagIdx in range(0, self.numOfBags):
+#             isCross = self.IsReadyForCross()
+#             if(isCross):
+#                 self.MixBags(bagIdx,
+#                              bagsForReproduction)
             
-            for bagIdx in range(0, self.numOfBags):
-                
-                if(roulette[bagIdx] > randRange):
-                    if( (bagIdx != bagIdxForReproduction) and (isFinded == False)):
-                        return copy(self.bags[bagIdx])
-                    isFinded = True
-                    
-
-    
-        
-    def DrawBagsForReproduction(self):
+            
+    def DrawIdxOfBagsForReproduction(self):
         roulette = Roulette(self.bags)
+        self.idxOfBagsForReproduction = roulette.DrawBags()
         
-        bagsForReproduction = []
-        for bagIdxForReproduction in range(0, self.numOfBags):
-            bagForReproduction = self.FindBagFromRange(roulette,
-                                                       rouletteRange,
-                                                       bagIdxForReproduction)
-
-            bagsForReproduction.append(bagForReproduction)
-        return bagsForReproduction
-            
-    def IsReadyForCross(self):
-        randomInt = random.randint(1, 100)
-        if(randomInt < self.crossProbability):
-            return True
-        else:
-            return False
-        
-    def MixTwoBag(self,
-                  bag,
-                  bagForReproduction):
-        numOfElements = bag.GetNumOfElements();
-        randNumOfElementToMix = random.randint(0, numOfElements-1)
-        
-        bag.ExtractElements(randNumOfElementToMix)
-        bag.AddElementsFromOtherBag(bagForReproduction)
-        
-        return bag
-        
-    def MixBags(self,
-                bagIdx,
-                bagsForReproduction):
-        bag = copy(self.bags[bagIdx])
-        bagForReproduction = copy(bagsForReproduction[bagIdx])
-        
-        
-        newBag = self.MixTwoBag(bag,
-                                bagForReproduction)
-        self.bags[bagIdx] = newBag
-        
-    def CrossBags(self,
-                  bagsForReproduction):
-
-        for bagIdx in range(0, self.numOfBags):
-            isCross = self.IsReadyForCross()
-            if(isCross):
-                self.MixBags(bagIdx,
-                             bagsForReproduction)
-            
-            
-            
     def StartCrossBags(self):
-        bagsForReproduction = self.DrawBagsForReproduction()
-        self.CrossBags(bagsForReproduction)
-    
+        self.DrawIdxOfBagsForReproduction()
+        print "idxOfBagsForReproduction" + str(self.idxOfBagsForReproduction)
+
+    def ResetVariable(self):
+        self.idxOfBagsForReproduction = []
+        
     def StartProcessing(self):
         self.FillBags()
         self.OrderBags()
         bigestValue = self.FindMostValuable()
+        self.PrintValueBags()
+        print "bigestValue = " + str(bigestValue)
+        self.ResetVariable()
+        self.StartCrossBags()
 #         for crossIdx in range(0, 1):
 #             self.StartCrossBags()
 #             bigestValue = self.FindMostValuable()
