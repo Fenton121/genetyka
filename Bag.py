@@ -18,3 +18,8 @@ class Bag():
         else:
             return False
         
+    def GetValue(self):
+        return self.value
+    
+    def GetWeight(self):
+        return self.weight

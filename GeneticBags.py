@@ -22,6 +22,17 @@ class GeneticBags():
                                                  valueOfElement,
                                                  elementIdxRandom)
             self.bags.append(bag)
-        
+            
+    def FindMostValuable(self):
+        bigestValue = 0;
+        mostValuableIdx = 0;
+        for bagIdx in range(0, self.numOfBags):
+            valueOfActualBag = self.bags[bagIdx].GetValue()
+            if( valueOfActualBag > bigestValue):
+                mostValuableIdx = bagIdx
+                bigestValue = valueOfActualBag
+        return bigestValue
+    
     def StartProcessing(self):
         self.FillBags()
+        bigestValue = self.FindMostValuable()
