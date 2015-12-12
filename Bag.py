@@ -28,31 +28,31 @@ class Bag():
         
     def IsNotTheSameElements(self,
                              elemIdxBagForRepr):
-        print "elemIdxBagForRepr" + str(elemIdxBagForRepr)
-        print "self.elementIdxs" + str(self.elementIdxs)
-        if( elemIdxBagForRepr in self.elementIdxs):
-            print "return False"
-            return False
-        else:
+        if not( elemIdxBagForRepr in self.elementIdxs):
             return True
+        else:
+            return False
         
     def AddElementsFromOtherBag(self,
                                 bagForReproduction):
         
-        numOfElemInNewBag = bagForReproduction.GetNumOfElements()
+        numOfElemInBagForReproduction = bagForReproduction.GetNumOfElements()
         valueBagForRepr, weightBagForRepr, elemIdxBagForRepr = bagForReproduction.GetValueWeightElementIdxs()
         isNotOverloaded = True;
         
-        while(isNotOverloaded):
-            print "isNotOverloaded" + str(isNotOverloaded)
-            randElemIdx = random.randint(0, numOfElemInNewBag - 1)
+        
+        while(isNotOverloaded and (numOfElemInBagForReproduction > 0)):
+
+            randElemIdx = random.randint(0, numOfElemInBagForReproduction - 1)
             isNotTheSameElements = self.IsNotTheSameElements(elemIdxBagForRepr[randElemIdx])
-            print "isNotTheSameElements" + str(isNotTheSameElements)
             if(isNotTheSameElements):
                 isNotOverloaded = self.AddElement(weightBagForRepr[randElemIdx],
                                                   valueBagForRepr[randElemIdx],
                                                   elemIdxBagForRepr[randElemIdx])
-
+            valueBagForRepr.pop(randElemIdx)
+            weightBagForRepr.pop(randElemIdx)
+            elemIdxBagForRepr.pop(randElemIdx)
+            numOfElemInBagForReproduction = numOfElemInBagForReproduction - 1;
                 
         
     def GetValueWeightElementIdxs(self):
@@ -65,4 +65,7 @@ class Bag():
         return sum(self.weight)
     
     def GetNumOfElements(self):
-        return len(self.elementIdxs);
+        return len(self.elementIdxs)
+    
+    def GetElementIdxs(self):
+        return self.elementIdxs

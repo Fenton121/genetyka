@@ -1,29 +1,48 @@
 from Bag import Bag
 import random
+from copy import copy
+from Roulette import Roulette
 
 class GeneticBags():
     def __init__(self,
                  elements,
                  numOfBags,
-                 maxWeightOfBag):
+                 maxWeightOfBag,
+                 numOfElements):
         self.elements       = elements;
         self.numOfBags      = numOfBags;
         self.maxWeightOfBag = maxWeightOfBag
+        self.numOfElements  = numOfElements;
         self.bags = []
         self.crossProbability = 60;
         
+    def PrintValueBags(self):
+        for bagIdx in range(0, self.numOfBags):
+            print "self.bags["+str(bagIdx)+"] = " + str(self.bags[bagIdx].GetValue())
+            
     def FillBags(self):
         for bagIdx in range(0, self.numOfBags):
             bag = Bag(self.maxWeightOfBag)
             isNotOverloaded = True
             while(isNotOverloaded):
-                elementIdxRandom =  random.randint(0, self.numOfBags - 1)
+                elementIdxRandom =  random.randint(0, self.numOfElements - 1)
                 weightOfElement, valueOfElement = self.elements[elementIdxRandom].GetWeightAndValue()
                 isNotOverloaded = bag.AddElement(weightOfElement,
                                                  valueOfElement,
                                                  elementIdxRandom)
             self.bags.append(bag)
             
+    def OrderBags(self):
+        isShiftedBag = True;
+        while(isShiftedBag):
+            isShiftedBag = False
+            for bagIdx in range(1, self.numOfBags):
+                if(self.bags[bagIdx - 1].GetValue() > self.bags[bagIdx].GetValue()):
+                    tempBag = self.bags[bagIdx];
+                    self.bags[bagIdx] = self.bags[bagIdx - 1];
+                    self.bags[bagIdx - 1] = tempBag;
+                    isShiftedBag = True 
+                
     def FindMostValuable(self):
         bigestValue = 0;
         mostValuableIdx = 0;
@@ -34,44 +53,36 @@ class GeneticBags():
                 bigestValue = valueOfActualBag
         return bigestValue
     
-    def CreateRoulette(self):
-        roulette = []
-        rouletteRange = 0
-        for bagIdx in range(0, self.numOfBags):
-            rouletteRange = rouletteRange + self.bags[bagIdx].GetValue()
-            roulette.append(rouletteRange)
-        return roulette, rouletteRange
+
     
     
-    def FindIdxOfBagsFromRange(self,
-                               roulette,
-                               rouletteRange,
-                               bagIdxForReproduction):
+    def FindBagFromRange(self,
+                         roulette,
+                         rouletteRange,
+                         bagIdxForReproduction):
 
         while(True):
             isFinded = False
             randRange = random.randint(0, rouletteRange - 1)
-            print "randRange" + str(randRange)
-            print "roulette" + str(roulette)
             
             for bagIdx in range(0, self.numOfBags):
                 
                 if(roulette[bagIdx] > randRange):
                     if( (bagIdx != bagIdxForReproduction) and (isFinded == False)):
-                        print " jest ok !!!" 
-                        return self.bags[bagIdx]
+                        return copy(self.bags[bagIdx])
                     isFinded = True
                     
 
     
         
     def DrawBagsForReproduction(self):
-        roulette, rouletteRange = self.CreateRoulette()
+        roulette = Roulette(self.bags)
+        
         bagsForReproduction = []
         for bagIdxForReproduction in range(0, self.numOfBags):
-            bagForReproduction = self.FindIdxOfBagsFromRange(roulette,
-                                                             rouletteRange,
-                                                             bagIdxForReproduction)
+            bagForReproduction = self.FindBagFromRange(roulette,
+                                                       rouletteRange,
+                                                       bagIdxForReproduction)
 
             bagsForReproduction.append(bagForReproduction)
         return bagsForReproduction
@@ -97,8 +108,10 @@ class GeneticBags():
     def MixBags(self,
                 bagIdx,
                 bagsForReproduction):
-        bag = self.bags[bagIdx];
-        bagForReproduction = bagsForReproduction[bagIdx]
+        bag = copy(self.bags[bagIdx])
+        bagForReproduction = copy(bagsForReproduction[bagIdx])
+        
+        
         newBag = self.MixTwoBag(bag,
                                 bagForReproduction)
         self.bags[bagIdx] = newBag
@@ -115,18 +128,15 @@ class GeneticBags():
             
             
     def StartCrossBags(self):
-        print "StartCrossBags1"
         bagsForReproduction = self.DrawBagsForReproduction()
-        print "StartCrossBags2"
         self.CrossBags(bagsForReproduction)
     
     def StartProcessing(self):
         self.FillBags()
+        self.OrderBags()
         bigestValue = self.FindMostValuable()
-        for crossIdx in range(0, 100):
-            print "crossIdx1 = " + str(crossIdx)
-            self.StartCrossBags()
-            print "crossIdx2 = " + str(crossIdx)
-            bigestValue = self.FindMostValuable()
-            print "crossIdx " + str(crossIdx) + " bigestValue = " + str(bigestValue)
+#         for crossIdx in range(0, 1):
+#             self.StartCrossBags()
+#             bigestValue = self.FindMostValuable()
+#             print "crossIdx " + str(crossIdx) + " bigestValue = " + str(bigestValue)
             

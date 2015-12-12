@@ -2,11 +2,12 @@ from GeneticBags import GeneticBags
 from DataExtractor import *
 
 if __name__ == "__main__":
-    elements, numOfBags, maxWeightOfBag = GetElementsFromFile()
+    elements, numOfBags, maxWeightOfBag, numOfElements = GetElementsFromFile()
     
     geneticBags = GeneticBags(elements,
                               numOfBags,
-                              maxWeightOfBag)
+                              maxWeightOfBag,
+                              numOfElements)
     geneticBags.StartProcessing()
     
 

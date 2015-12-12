@@ -13,4 +13,4 @@ def GetElementsFromFile():
         weight = int(valueWeight[1])
         newElement = Element(weight, value)
         elements.append(newElement);
-    return elements, numOfBags, maxWeightOfBag
+    return elements, numOfBags, maxWeightOfBag, numOfElements - 3
