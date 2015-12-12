@@ -2,6 +2,7 @@ from Bag import Bag
 import random
 from copy import copy
 from Roulette import Roulette
+from Inseminator import Inseminator
 
 class GeneticBags():
     def __init__(self,
@@ -103,10 +104,12 @@ class GeneticBags():
         
     def StartCrossBags(self):
         self.DrawIdxOfBagsForReproduction()
-        print "idxOfBagsForReproduction" + str(self.idxOfBagsForReproduction)
-
+        
+        
     def ResetVariable(self):
         self.idxOfBagsForReproduction = []
+        inseminator = Inseminator(self.bags,
+                                  self.idxOfBagsForReproduction)
         
     def StartProcessing(self):
         self.FillBags()

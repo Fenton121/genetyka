@@ -16,7 +16,6 @@ class Roulette():
     def DrawBags(self):
         idxOfBagsForReproduction = []
         while(len(idxOfBagsForReproduction) < (len(self.bags)/2) ):
-            print "inside DrawBags"
             idxOfBagForReproduction = self.FindBagFromRange()
             if not(idxOfBagForReproduction in idxOfBagsForReproduction):
                 idxOfBagsForReproduction.append(idxOfBagForReproduction)
