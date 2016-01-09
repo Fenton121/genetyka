@@ -5,7 +5,7 @@ def GetElementsFromFile():
     
     bagParams = BagParams()
  
-    data = open('data').readlines()
+    data = open('data4').readlines()
     bagParams.maxWeightOfBag = int(data[0].rstrip())
     bagParams.numOfBags      = int(data[1].rstrip())
     

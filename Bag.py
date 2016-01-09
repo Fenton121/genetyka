@@ -27,7 +27,7 @@ class Bag():
                    weight,
                    value,
                    elementIdx):
-        if( (sum(self.weight) + weight) < self.maxWeightOfBag) :
+        if( (sum(self.weight) + weight) <= self.maxWeightOfBag) :
             if not (self.IsTheSameElem(elementIdx)):
                 self.weight.append(weight)
                 self.value.append(value)
@@ -67,6 +67,8 @@ class Bag():
     def GetValueSum(self):
         return sum(self.value)
     
+    def GetElementIdxs(self):
+        return self.elementIdxs
     def GetWeight(self):
         return self.weight
     def GetWeightSum(self):

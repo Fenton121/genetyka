@@ -13,7 +13,7 @@ class Roulette():
     def InitializeRoulette(self):
 
         numOfBagsForRemove = len(self.bags) - self.inputNumOfBags
-        for bagIdx in range(0, 20):
+        for bagIdx in range(0, 2):
             self.rouletteRange = self.rouletteRange + self.bags[bagIdx].GetValueSum()
             self.roulette.append(self.rouletteRange)
         

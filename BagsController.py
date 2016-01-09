@@ -11,7 +11,11 @@ class BagsController():
         
     def PrintValues(self):
         for bagIdx in range(0, len(self.bags)):
-            print "bag[" + str(bagIdx) + "] = " + str(self.bags[bagIdx].GetValueSum()) 
+            print "bag[" + str(bagIdx) + "] = " + str(self.bags[bagIdx].GetValueSum())
+
+    def PrintElementsIdxs(self):
+        for bagIdx in range(0, len(self.bags)):
+            print "bag[" + str(bagIdx) + "] = " + str(self.bags[bagIdx].GetElementIdxs())
             
     def PrintNumOfElements(self):
         print 'len(self.bags)' + str(len(self.bags))
@@ -77,8 +81,8 @@ class BagsController():
                bagIdx):
         bagForModification = copy.deepcopy(self.bags[bagIdx])
         bagForModification.RemoveRandElement()
-        bagForModification.RemoveRandElement()
-        bagForModification.RemoveRandElement()
+#         bagForModification.RemoveRandElement()
+#         bagForModification.RemoveRandElement()
         
         for idxOfTry in range(0, 100):
             elementIdxRandom =  random.randint(0, self.bagParams.numOfElements - 1)
