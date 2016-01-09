@@ -19,7 +19,7 @@ class GeneticBags():
         
         maxValue = 0
         bigestValue = self.bagsController.FindMostValuable()
-        for crossIdx in range(0, 1000):
+        for crossIdx in range(0, 10000):
             self.modificationController.ModificateBags()
             self.bagsController.OrderBags()
             self.crossController.CrossBags()
@@ -30,8 +30,9 @@ class GeneticBags():
             
             if(bigestValue > maxValue):
                 maxValue = bigestValue
-                print 'crossIdx = ' + str(crossIdx) + ' maxValue = ' + str(maxValue)
-#                 print "crossIdx = " + str(crossIdx) + "bigestValue = " + str(bigestValue)
-                self.bagsController.PrintElementsIdxs()
+                
+            print 'crossIdx = ' + str(crossIdx) + 'bigestValueActual = ' + str(bigestValue) + ' maxValue = ' + str(maxValue)
+                
+#                 self.bagsController.PrintElementsIdxs()
 #                 self.bagsController.PrintWeights()
 #                 self.bagsController.PrintWeightsSum()
