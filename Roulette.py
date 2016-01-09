@@ -1,7 +1,9 @@
 import random
 class Roulette():
     def __init__(self,
-                 bags):
+                 bags,
+                 numOfBags):
+        self.inputNumOfBags =  numOfBags
         self.bags = bags
 
     def ResetMembers(self):
@@ -9,8 +11,9 @@ class Roulette():
         self.rouletteRange = 0
         
     def InitializeRoulette(self):
-#         numOfBags = len(self.bags)
-        for bagIdx in range(0, 5):
+
+        numOfBagsForRemove = len(self.bags) - self.inputNumOfBags
+        for bagIdx in range(0, 20):
             self.rouletteRange = self.rouletteRange + self.bags[bagIdx].GetValueSum()
             self.roulette.append(self.rouletteRange)
         

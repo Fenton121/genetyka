@@ -6,7 +6,8 @@ import random
 class CrossController():
     def __init__(self, bagsController):
         self.bagsController = bagsController
-        self.roulette = Roulette(self.bagsController.bags)
+        self.roulette = Roulette(self.bagsController.bags,
+                                 self.bagsController.bagParams.numOfBags)
         self.bagMixer = BagMixer(self.bagsController)
         
     def CrossBags(self):

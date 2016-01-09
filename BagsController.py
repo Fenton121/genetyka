@@ -53,7 +53,7 @@ class BagsController():
     
     def RemoveLeastValuable(self):
         numOfBags = len(self.bags)
-        for bagIdx in range(20,numOfBags):
+        for bagIdx in range(self.bagParams.numOfBags, numOfBags):
             self.bags.pop()
 
     def RemoveBags(self):
@@ -77,12 +77,15 @@ class BagsController():
                bagIdx):
         bagForModification = copy.deepcopy(self.bags[bagIdx])
         bagForModification.RemoveRandElement()
+        bagForModification.RemoveRandElement()
+        bagForModification.RemoveRandElement()
         
-        elementIdxRandom =  random.randint(0, self.bagParams.numOfElements - 1)
-        weightOfElement, valueOfElement = self.bagParams.elements[elementIdxRandom].GetWeightAndValue()
-        bagForModification.AddElement(weightOfElement,
-                                      valueOfElement,
-                                      elementIdxRandom)
+        for idxOfTry in range(0, 100):
+            elementIdxRandom =  random.randint(0, self.bagParams.numOfElements - 1)
+            weightOfElement, valueOfElement = self.bagParams.elements[elementIdxRandom].GetWeightAndValue()
+            bagForModification.AddElement(weightOfElement,
+                                          valueOfElement,
+                                          elementIdxRandom)
         
         
         self.bags[bagIdx] = bagForModification

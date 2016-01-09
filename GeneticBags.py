@@ -25,5 +25,5 @@ class GeneticBags():
             self.bagsController.RemoveLeastValuable()
              
             bigestValue = self.bagsController.FindMostValuable()
-            print "bigestValue = " + str(bigestValue)
+            print "crossIdx = " + str(crossIdx) + "bigestValue = " + str(bigestValue)
         
