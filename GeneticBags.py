@@ -17,7 +17,7 @@ class GeneticBags():
         
     def StartProcessing(self):
         bigestValue = self.bagsController.FindMostValuable()
-        for crossIdx in range(0, 1000):
+        for crossIdx in range(0, 5000):
             self.modificationController.ModificateBags()
             self.bagsController.OrderBags()
             self.crossController.CrossBags()
