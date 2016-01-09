@@ -8,6 +8,7 @@ class Bag():
         self.elementIdxs = []
         self.maxWeightOfBag = maxWeightOfBag
         
+        
     def AddElement(self,
                    weight,
                    value,
