@@ -12,41 +12,57 @@ class Bag():
     def ExtractElements(self,
                         idxForExtraction):
         
-        numOfElemForExtraction = self.GetNumOfElements() - idxForExtraction - 1
+        numOfElemForExtraction = self.GetNumOfElements() - idxForExtraction
         
         for elemIdx in range(0, numOfElemForExtraction):
             self.weight.pop()
             self.value.pop()
             self.elementIdxs.pop()
         
-    def IsNotTheSameElem(self,
+    def IsTheSameElem(self,
                          elemIdx):
-        if not (elemIdx in self.elementIdxs):
-            return True
-        else:
-            return False
+        return elemIdx in self.elementIdxs
     
     def AddElement(self,
                    weight,
                    value,
                    elementIdx):
-        if( ((sum(self.weight) + weight) < self.maxWeightOfBag) & self.IsNotTheSameElem(elementIdx)):
-            self.weight.append(weight)
-            self.value.append(value)
-            self.elementIdxs.append(elementIdx)
+        if( (sum(self.weight) + weight) < self.maxWeightOfBag) :
+            if not (self.IsTheSameElem(elementIdx)):
+                self.weight.append(weight)
+                self.value.append(value)
+                self.elementIdxs.append(elementIdx)
             return True
         else:
             return False
         
-    def GetElement(self,
-                   elementIdx):
+    def ContainElements(self):
+        numOfElement = len(self.elementIdxs)
+        if(numOfElement > 0):
+            return True
+        else:
+            return False
         
-        return self.weight[elementIdx], self.value[elementIdx], self.elementIdxs[elementIdx]
+    def GetRandElement(self):
+        numOfElement = len(self.elementIdxs)
+#         print 'numOfElement' + str(numOfElement)
+        randomIdx = random.randint(0, numOfElement - 1)
+        
+        weight     = self.weight[randomIdx]
+        value      = self.value[randomIdx]
+        elementIdx = self.elementIdxs[randomIdx]
+        self.weight.pop(randomIdx)
+        self.value.pop(randomIdx)
+        self.elementIdxs.pop(randomIdx)
+        
+        return weight, value, elementIdx
         
     
     def GetValueSum(self):
         return sum(self.value)
     
+    def GetWeight(self):
+        return self.weight
     def GetWeightSum(self):
         return sum(self.weight)
     

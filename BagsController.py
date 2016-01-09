@@ -13,6 +13,18 @@ class BagsController():
         for bagIdx in range(0, len(self.bags)):
             print "bag[" + str(bagIdx) + "] = " + str(self.bags[bagIdx].GetValueSum()) 
             
+    def PrintNumOfElements(self):
+        print 'len(self.bags)' + str(len(self.bags))
+        for bagIdx in range(0, len(self.bags)):
+            print "bag[" + str(bagIdx) + "].NumOfElements = " + str(self.bags[bagIdx].GetNumOfElements()) 
+    
+    def PrintWeightsSum(self):
+        for bagIdx in range(0, len(self.bags)):
+            print "bag[" + str(bagIdx) + "].WeightSum = " + str(self.bags[bagIdx].GetWeightSum()) 
+    def PrintWeights(self):
+        for bagIdx in range(0, len(self.bags)):
+            print "bag[" + str(bagIdx) + "].Weight = " + str(self.bags[bagIdx].GetWeight()) 
+            
     def FillBags(self):
         for bagIdx in range(0, self.bagParams.numOfBags):
             bag = Bag(self.bagParams.maxWeightOfBag)
@@ -23,7 +35,6 @@ class BagsController():
                 isNotOverloaded = bag.AddElement(weightOfElement,
                                                  valueOfElement,
                                                  elementIdxRandom)
-            print "bag.GetValueSum" + str(bag.GetValueSum())
             self.bags.append(bag)
             
     def OrderBags(self):
@@ -38,14 +49,7 @@ class BagsController():
                     isShiftedBag = True 
                     
     def FindMostValuable(self):
-        bigestValue = 0;
-        mostValuableIdx = 0;
-        for bagIdx in range(0, len(self.bags)):
-            valueOfActualBag = self.bags[bagIdx].GetValueSum()
-            if( valueOfActualBag > bigestValue):
-                mostValuableIdx = bagIdx
-                bigestValue = valueOfActualBag
-        return bigestValue
+        return self.bags[len(self.bags) - 1].GetValueSum()
     
     def RemoveLeastValuable(self):
         numOfBags = len(self.bags)
