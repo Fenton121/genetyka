@@ -12,7 +12,7 @@ class Roulette():
         
     def InitializeRoulette(self):
 #         for bagIdx in range(0, len(self.bags)):
-        for bagIdx in range(0, 5):
+        for bagIdx in range(0, 2):
             self.rouletteRange = self.rouletteRange + self.bags[bagIdx].GetValueSum()
             self.roulette.append(self.rouletteRange)
         

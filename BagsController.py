@@ -80,9 +80,10 @@ class BagsController():
     def ModBag(self,
                bagIdx):
         bagForModification = copy.deepcopy(self.bags[bagIdx])
-        bagForModification.RemoveRandElement()
-        bagForModification.RemoveRandElement()
-        bagForModification.RemoveRandElement()
+        bagForModification.RemoveRandElements()
+#         bagForModification.RemoveRandElement()
+#         bagForModification.RemoveRandElement()
+#         bagForModification.RemoveRandElement()
         
         for idxOfTry in range(0, 100):
             elementIdxRandom =  random.randint(0, self.bagParams.numOfElements - 1)

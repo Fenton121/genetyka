@@ -64,6 +64,16 @@ class Bag():
         self.value.pop(randomIdx)
         self.elementIdxs.pop(randomIdx)
         
+    def RemoveRandElements(self):
+        numOfElement = len(self.elementIdxs)
+        randomIdx = random.randint(1, numOfElement - 1)
+    
+        for removeElemIdx in range(0, randomIdx):
+            randomIdxTemp = random.randint(0, len(self.elementIdxs) - 1)
+            self.weight.pop(randomIdxTemp)
+            self.value.pop(randomIdxTemp)
+            self.elementIdxs.pop(randomIdxTemp)
+            
     def GetValueSum(self):
         return sum(self.value)
     
