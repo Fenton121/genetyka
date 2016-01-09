@@ -11,11 +11,12 @@ class Bag():
         
     def ExtractElements(self,
                         numOfElemToExtr):
-        
         for elemIdx in range(0, numOfElemToExtr):
-            self.weight.pop()
-            self.value.pop()
-            self.elementIdxs.pop()
+            numOfElement = len(self.elementIdxs)
+            randomIdx = random.randint(0, numOfElement - 1)
+            self.weight.pop(randomIdx)
+            self.value.pop(randomIdx)
+            self.elementIdxs.pop(randomIdx)
         
     def IsTheSameElem(self,
                          elemIdx):
