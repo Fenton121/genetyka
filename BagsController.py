@@ -42,7 +42,7 @@ class BagsController():
         while(isShiftedBag):
             isShiftedBag = False
             for bagIdx in range(1, len(self.bags)):
-                if(self.bags[bagIdx - 1].GetValueSum() > self.bags[bagIdx].GetValueSum()):
+                if(self.bags[bagIdx - 1].GetValueSum() < self.bags[bagIdx].GetValueSum()):
                     tempBag = self.bags[bagIdx];
                     self.bags[bagIdx] = self.bags[bagIdx - 1];
                     self.bags[bagIdx - 1] = tempBag;
@@ -54,7 +54,7 @@ class BagsController():
     def RemoveLeastValuable(self):
         numOfBags = len(self.bags)
         for bagIdx in range(20,numOfBags):
-            self.bags.pop(0)
+            self.bags.pop()
 
     def RemoveBags(self):
         for i in range(0, len(self.bags)):

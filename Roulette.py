@@ -9,8 +9,8 @@ class Roulette():
         self.rouletteRange = 0
         
     def InitializeRoulette(self):
-        numOfBags = len(self.bags)
-        for bagIdx in range(0, numOfBags):
+#         numOfBags = len(self.bags)
+        for bagIdx in range(0, 5):
             self.rouletteRange = self.rouletteRange + self.bags[bagIdx].GetValueSum()
             self.roulette.append(self.rouletteRange)
         
@@ -28,7 +28,7 @@ class Roulette():
         return idxsOfBagsForReproduction
             
     def FindBagFromRange(self):
-        randRange = random.randint(0, self.rouletteRange/2 - 1)
+        randRange = random.randint(0, self.rouletteRange - 1)
         for bagIdx in range(0, len(self.bags)):
             if(self.roulette[bagIdx] > randRange):
                 return bagIdx

@@ -17,13 +17,13 @@ class GeneticBags():
         
     def StartProcessing(self):
         bigestValue = self.bagsController.FindMostValuable()
-        for crossIdx in range(0, 5000):
+        for crossIdx in range(0, 10000):
             self.modificationController.ModificateBags()
             self.bagsController.OrderBags()
             self.crossController.CrossBags()
             self.bagsController.OrderBags()
             self.bagsController.RemoveLeastValuable()
-            
+             
             bigestValue = self.bagsController.FindMostValuable()
             print "bigestValue = " + str(bigestValue)
         
