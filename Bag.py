@@ -9,11 +9,28 @@ class Bag():
         self.maxWeightOfBag = maxWeightOfBag
         
         
+    def ExtractElements(self,
+                        idxForExtraction):
+        
+        numOfElemForExtraction = self.GetNumOfElements() - idxForExtraction - 1
+        
+        for elemIdx in range(0, numOfElemForExtraction):
+            self.weight.pop()
+            self.value.pop()
+            self.elementIdxs.pop()
+        
+    def IsNotTheSameElem(self,
+                         elemIdx):
+        if not (elemIdx in self.elementIdxs):
+            return True
+        else:
+            return False
+    
     def AddElement(self,
                    weight,
                    value,
                    elementIdx):
-        if( (sum(self.weight) + weight) < self.maxWeightOfBag):
+        if( ((sum(self.weight) + weight) < self.maxWeightOfBag) & self.IsNotTheSameElem(elementIdx)):
             self.weight.append(weight)
             self.value.append(value)
             self.elementIdxs.append(elementIdx)
@@ -21,20 +38,16 @@ class Bag():
         else:
             return False
         
-    def ExtractElements(self,
-                        elementIdx):
-        self.weight = self.weight[0:elementIdx]
-        self.value = self.value[0:elementIdx]
-        self.elementIdxs = self.elementIdxs[0:elementIdx]
+    def GetElement(self,
+                   elementIdx):
         
-                
-    def GetParameters(self):
-        return self.value, self.weight, self.elementIdxs, len(self.elementIdxs)
+        return self.weight[elementIdx], self.value[elementIdx], self.elementIdxs[elementIdx]
+        
     
-    def GetValue(self):
+    def GetValueSum(self):
         return sum(self.value)
     
-    def GetWeight(self):
+    def GetWeightSum(self):
         return sum(self.weight)
     
     def GetNumOfElements(self):

@@ -3,8 +3,8 @@ import copy
 
 class BagMixer():
     def __init__(self,
-                 bags):
-        self.bags = bags;
+                 bagsController):
+        self.bagsController = bagsController
         self.crossProbability = 60
         
     def IsReadyForCross(self):
@@ -22,39 +22,55 @@ class BagMixer():
         else:
             return False
          
+    def AddElementsFromOneBagToAnother(self,
+                                       bagWhichContainElementToMove,
+                                       idxOfElementToMove,
+                                       numOfElem,
+                                       mixedBag):
+        
+        
+        isNotOverloaded = True;
+        while( isNotOverloaded and (idxOfElementToMove < numOfElem)):
+            weight, value, elementIdxs = bagWhichContainElementToMove.GetElement(idxOfElementToMove)
+            isNotOverloaded = mixedBag.AddElement(weight,
+                                                  value,
+                                                  elementIdxs)
+            idxOfElementToMove = idxOfElementToMove + 1
+            
     def MixTwoBag(self,
                  firstBag,
                  secondBag):
+        numOfElemFirstBag   = firstBag.GetNumOfElements()
+        numOfElemeSecondBag = secondBag.GetNumOfElements()
         
-#         numOfElemFirstBag = firstBag.GetNumOfElements()
-#         valueSecondBag, weightSecondBag, elemIdxsSecondBag, numOfElemSecondBag = secondBag.GetParameters()
-#         idxForExtraction = random.randint(0, numOfElemFirstBag - 1)
-#         firstBag.ExtractElements(idxForExtraction)
-#         isNotOverloaded = True;
-#         while(isNotOverloaded and (numOfElemSecondBag > 0)):
-#  
-#             randElemIdx = random.randint(0, secondBag.GetNumOfElements() - 1)
-#             if not (elemIdxsSecondBag[randElemIdx] in firstBag.GetElementIdxs()):
-#                 isNotOverloaded = firstBag.AddElement(weightSecondBag[randElemIdx],
-#                                                       valueSecondBag[randElemIdx],
-#                                                       elemIdxsSecondBag[randElemIdx])
-#             valueSecondBag.pop(randElemIdx)
-#             weightSecondBag.pop(randElemIdx)
-#             elemIdxsSecondBag.pop(randElemIdx)
-#             numOfElemSecondBag = numOfElemSecondBag - 1;
-#         self.bagsAfterReproduction.append(firstBag)
+        idxForExtractionFirstBag  = random.randint(0, numOfElemFirstBag - 1)
+        idxForExtractionSecondBag = random.randint(0, numOfElemeSecondBag - 1)
+        
+        mixedFirstBag  = firstBag.ExtractElements(idxForExtractionFirstBag)
+        mixedSecondBag = secondBag.ExtractElements(idxForExtractionSecondBag)
+        
+        print 'mixedFirstBag' + str(mixedFirstBag)
+        print 'mixedSecondBag' + str(mixedSecondBag)
+        self.AddElementsFromOneBagToAnother(secondBag,
+                                            idxForExtractionSecondBag,
+                                            numOfElemeSecondBag,
+                                            mixedFirstBag)
+
+        self.AddElementsFromOneBagToAnother(firstBag,
+                                            idxForExtractionSecondBag,
+                                            numOfElemFirstBag,
+                                            mixedSecondBag)
+        
+        self.bagsController.AppendBag(mixedFirstBag)
+        self.bagsController.AppendBag(mixedSecondBag)
          
-    def RemoveBags(self):
-        for i in range(0, len(self.bags)):
-            self.bags.pop()
+
         
     def MixBags(self,
                 idxOfBagsForRepro):
-        copyOfBags = copy.deepcopy(self.bags)
-        self.RemoveBags()
-        
-        
-        print 'idxOfBagsForRepro' + str(idxOfBagsForRepro);
+        copyOfBags = self.bagsController.GetCopyOfBags()
+        self.bagsController.RemoveBags()
+    
         
         for bagIdx in range(0, len(copyOfBags)):
             isCross = self.IsReadyForCross()
@@ -63,7 +79,7 @@ class BagMixer():
                 self.MixTwoBag(copyOfBags[bagIdx],
                                copyOfBags[drawIdx])
             else:
-                self.bags.append(copyOfBags[bagIdx])
+                self.bagsController.AppendBag(copyOfBags[bagIdx])
                  
          
 
