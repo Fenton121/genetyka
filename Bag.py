@@ -10,11 +10,9 @@ class Bag():
         
         
     def ExtractElements(self,
-                        idxForExtraction):
+                        numOfElemToExtr):
         
-        numOfElemForExtraction = self.GetNumOfElements() - idxForExtraction
-        
-        for elemIdx in range(0, numOfElemForExtraction):
+        for elemIdx in range(0, numOfElemToExtr):
             self.weight.pop()
             self.value.pop()
             self.elementIdxs.pop()
@@ -22,6 +20,7 @@ class Bag():
     def IsTheSameElem(self,
                          elemIdx):
         return elemIdx in self.elementIdxs
+    
     
     def AddElement(self,
                    weight,
@@ -45,7 +44,6 @@ class Bag():
         
     def GetRandElement(self):
         numOfElement = len(self.elementIdxs)
-#         print 'numOfElement' + str(numOfElement)
         randomIdx = random.randint(0, numOfElement - 1)
         
         weight     = self.weight[randomIdx]
@@ -57,7 +55,14 @@ class Bag():
         
         return weight, value, elementIdx
         
-    
+    def RemoveRandElement(self):
+        numOfElement = len(self.elementIdxs)
+        randomIdx = random.randint(0, numOfElement - 1)
+        
+        self.weight.pop(randomIdx)
+        self.value.pop(randomIdx)
+        self.elementIdxs.pop(randomIdx)
+        
     def GetValueSum(self):
         return sum(self.value)
     

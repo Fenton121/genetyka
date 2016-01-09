@@ -69,7 +69,23 @@ class BagsController():
     
     def CreateNewBag(self):
         return Bag(self.bagParams.maxWeightOfBag)
-
+    
+    def GetNumOfBag(self):
+        return len(self.bags)
+    
+    def ModBag(self,
+               bagIdx):
+        bagForModification = copy.deepcopy(self.bags[bagIdx])
+        bagForModification.RemoveRandElement()
+        
+        elementIdxRandom =  random.randint(0, self.bagParams.numOfElements - 1)
+        weightOfElement, valueOfElement = self.bagParams.elements[elementIdxRandom].GetWeightAndValue()
+        bagForModification.AddElement(weightOfElement,
+                                      valueOfElement,
+                                      elementIdxRandom)
+        
+        
+        self.bags[bagIdx] = bagForModification
 
 
 

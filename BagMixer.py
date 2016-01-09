@@ -5,7 +5,7 @@ class BagMixer():
     def __init__(self,
                  bagsController):
         self.bagsController = bagsController
-        self.crossProbability = 100
+        self.crossProbability = 60
         
     def IsReadyForCross(self):
         randomInt = random.randint(1, 100)
@@ -28,7 +28,7 @@ class BagMixer():
         
         isNotOverloaded = True;
         isElements = True
-        while( isNotOverloaded & isElements): 
+        while(isElements): 
             weight, value, elementIdxs = bagWhichContainElementToMove.GetRandElement()
             isNotOverloaded = mixedBag.AddElement(weight,
                                                   value,
@@ -43,37 +43,25 @@ class BagMixer():
         numOfElemFirstBag   = firstBag.GetNumOfElements()
         numOfElemeSecondBag = secondBag.GetNumOfElements()
     
-        
-        idxForExtractionFirstBag  = random.randint(1, numOfElemFirstBag - 1)
-        idxForExtractionSecondBag = random.randint(1, numOfElemeSecondBag - 1)
-        
-#         print '*******************************************'
-#         print 'numOfElemFirstBag= ' + str(numOfElemFirstBag) + 'idxForExtractionFirstBag = ' + str(idxForExtractionFirstBag)
-#         print 'numOfElemeSecondBag = ' + str(numOfElemeSecondBag)+ 'idxForExtractionSecondBag = ' + str(idxForExtractionSecondBag)
-        
-#         print 'numOfElemFirstBag=' + str(numOfElemFirstBag)
-#         print 'idxForExtractionFirstBag=' + str(idxForExtractionFirstBag)
+        numOfExtrElemFirstBag  = random.randint(1, numOfElemFirstBag - 1)
+        numOfExtrElemSecondBag = random.randint(1, numOfElemeSecondBag - 1)
         
         mixedFirstBag  = copy.deepcopy(firstBag)
         mixedSecondBag = copy.deepcopy(secondBag)
         
-        mixedFirstBag.ExtractElements(idxForExtractionFirstBag)
-        mixedSecondBag.ExtractElements(idxForExtractionSecondBag)
+        mixedFirstBag.ExtractElements(numOfExtrElemFirstBag)
+        mixedSecondBag.ExtractElements(numOfExtrElemSecondBag)
         
-#         print 'mixedFirstBag.GetNumOfElements()' + str(mixedFirstBag.GetNumOfElements())
         
         self.AddElementsFromOneBagToAnother(copy.deepcopy(secondBag),
                                             mixedFirstBag)
 
         self.AddElementsFromOneBagToAnother(copy.deepcopy(firstBag),
                                             mixedSecondBag)
-        
-#         print 'mixedFirstBag.GetNumOfElements() = ' + str(mixedFirstBag.GetNumOfElements()) + 'GetWeightSum = '+ str(mixedFirstBag.GetWeightSum())
-#         print 'mixedSecondBag.GetNumOfElements() = ' + str(mixedSecondBag.GetNumOfElements()) + 'GetWeightSum = '+ str(mixedFirstBag.GetWeightSum())
+
         self.bagsController.AppendBag(mixedFirstBag)
         self.bagsController.AppendBag(mixedSecondBag)
         
-#         self.bagsController.PrintNumOfElements()
 
             
     def MixBags(self,
