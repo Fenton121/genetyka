@@ -52,8 +52,8 @@ class BagsController():
                     self.bags[bagIdx - 1] = tempBag;
                     isShiftedBag = True 
                     
-    def FindMostValuable(self):
-        return self.bags[len(self.bags) - 1].GetValueSum()
+    def GetMostValuable(self):
+        return self.bags[0].GetValueSum()
     
     def RemoveLeastValuable(self):
         numOfBags = len(self.bags)
@@ -76,6 +76,9 @@ class BagsController():
     
     def GetNumOfBag(self):
         return len(self.bags)
+    
+    def GetFirstBag(self):
+        return self.bags[0]
     
     def ModBag(self,
                bagIdx):

@@ -6,7 +6,7 @@ import random
 class ModificationController():
     def __init__(self, bagsController):
         self.bagsController = bagsController
-        self.modificationProbability = 25
+        self.modificationProbability = 40
         
     def IsReadyForModification(self):
         randomInt = random.randint(1, 100)

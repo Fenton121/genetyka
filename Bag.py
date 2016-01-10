@@ -77,10 +77,15 @@ class Bag():
     def GetValueSum(self):
         return sum(self.value)
     
+    def GetValues(self):
+        return self.value
+    
     def GetElementIdxs(self):
         return self.elementIdxs
+    
     def GetWeight(self):
         return self.weight
+    
     def GetWeightSum(self):
         return sum(self.weight)
     
